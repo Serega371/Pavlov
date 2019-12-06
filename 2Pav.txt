@@ -1,0 +1,31 @@
+#include <iostream>
+#include <math.h>
+using namespace std;
+int main()
+{
+double a[100], s=0;
+int n, k, kol=0, mi=0;
+cout << "Vvesti kol-vo elementov \n";
+cin >> n;
+cout << "Vvesti elementi massiva \n";
+for (k=0; k < n; k++) 
+
+{
+cin >> a[k];
+if (fabs(a[k])<1e-12) kol++;
+}
+cout << kol << " элементов равны 0\n";
+for (k=1; k < n; k++)
+if (a[k] < a[mi]) mi=k;
+for (mi++; mi < n; s+=a[mi++]);
+cout << "Summa elementov posle minimal'nogo = " << s << endl;
+for (kol=n-1; kol > 0; kol--)
+for (k=0; k < kol; k++)
+if (fabs(a[k]) > fabs(a[k+1]))
+{
+s=a[k]; a[k]=a[k+1]; a[k+1]=s;
+}
+cout << "Полученный массив: \n";
+for (k=0; k < n; k++)
+cout << a[k] << " ";
+}

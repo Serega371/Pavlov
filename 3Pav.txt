@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define N 6
+ 
+int main()
+{       int spiral[N][N], Step, cur[4*(N-1)], shift[4*(N-1)];
+        int i,j,k,c,edge;
+ 
+// числа от 1 до 20
+        srand(time(NULL));
+        printf("Original array:\n");
+        for(i=0;i<N;i++)
+        {       for(j=0;j<N;j++) 
+                {   spiral[i][j]=rand()%20+1;
+                    printf("%6d",spiral[i][j]);
+                }
+                printf("\n");
+        }
+//запрос количества шагов поворота
+        printf("\n Сколько шагов для поворота? Шагов = ");
+        scanf("%d",&Step);
+        
+        for(k=0; k<N/2;k++)
+        {       edge = N-1-k;
+              
+        c=0;
+        for(j=k;j<edge;j++)             
+                {      cur[c] = spiral[k][j];
+                        c++;
+                }
+                for(i=k;i<edge;i++)             
+                {      cur[c] = spiral[i][edge];
+                        c++;
+                }
+                for(j=edge;j>=k;j--)    
+                {      cur[c] = spiral[edge][j];
+                        c++;
+                }
+                for(i=edge-1;i>k;i--)             
+                {       cur[c] = spiral[i][k];
+                        c++;
+                }
+//переставить
+        for(i=0;i<4*(N-2*k-1);i++)
+            shift[(i+Step)%(4*(N-2*k-1))]=cur[i];      
+        c=0;
+        for(j=k;j<edge;j++)             
+                {   spiral[k][j] = shift[c];   
+                    c++;
+                }
+                for(i=k;i<edge;i++)             
+                {    spiral[i][edge]= shift[c];
+                        c++;
+                }
+                for(j=edge;j>=k;j--)    
+                {    spiral[edge][j]= shift[c];
+                        c++;
+                }
+                for(i=edge-1;i>k;i--)             
+                {     spiral[i][k]= shift[c];
+                        c++;
+                }
+        }
+      
+ //Конец и результыта
+        printf("Result:\n");
+        for(i=0;i<N;i++)
+        {       for(j=0;j<N;j++) printf("%6d",spiral[i][j]);
+                printf("\n");
+        }
+ 
+        return 0;
+}
